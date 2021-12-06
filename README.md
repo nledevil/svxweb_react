@@ -1,6 +1,6 @@
 # Getting Started with SVXWEB
 
-This project is aimed at creating a web configuration frontend for SVXLink
+This project is aimed at creating a web configuration frontend for SVXLink. Not all features are functional at the moment and this software is considered pre-alpha at the moment.
 
 ## Benefits
 
