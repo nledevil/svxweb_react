@@ -10,11 +10,15 @@ This project is aimed at creating a web configuration frontend for SVXLink. Not 
   * Enable/Disable/Stop/Start SVXLink remotely.
 
 - View System stats at a glance
-  * View CPU Utilization
+  * View System Info (Hostname, arch type, os, os type and uptime)
+  * View CPU Utilization, CPU Count, Model, Temp
   * View Used, Free and Total Memory
-  * View sound card information
+  * View sound card information (input devices / output devices)
+  * View USB Devices (lsusb)
+  * View Network Info (interface and IPv4 Address)
 
-- Allow you to manage multiple SVXLink servers
+
+- Future
   * Be able to manage multiple SVXLink Servers from one web page
 
 ## Backend svxlink_graphql
