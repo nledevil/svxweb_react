@@ -45,7 +45,7 @@ function App() {
 
   React.useEffect(() => {
     if (osStatsData) {
-      console.info('osStatsData:', osStatsData);
+      // console.info('osStatsData:', osStatsData);
       const { getOSStats } = osStatsData;
       dispatch({
         type: 'OSStats',
@@ -56,7 +56,7 @@ function App() {
 
   React.useEffect(() => {
     if (svxlinkData) {
-      console.info('svxlinkData:', svxlinkData);
+      // console.info('svxlinkData:', svxlinkData);
       const { getSvxlinkConfig } = svxlinkData;
       dispatch({
         type: 'SvxlinkConfig',

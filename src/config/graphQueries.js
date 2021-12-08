@@ -34,7 +34,13 @@ const getOSStats = gql`
       cpuAvg
       cpuCount
       cpuModel
+      cpuTemp
     }
+    audio {
+      inputs
+      outputs
+    }
+    usb
   }
 }`;
 
