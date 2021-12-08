@@ -17,7 +17,6 @@ This project is aimed at creating a web configuration frontend for SVXLink. Not 
   * View USB Devices (lsusb)
   * View Network Info (interface and IPv4 Address)
 
-
 - Future
   * Be able to manage multiple SVXLink Servers from one web page
 
@@ -25,6 +24,10 @@ This project is aimed at creating a web configuration frontend for SVXLink. Not 
 
 The Backend is a NodeJS Express GraphQL application that runs on each server running Svxlink. This is the main interface that the React frontend connects to.
 
+### TODO: Create Install Documentation / Install Scripts
+
 ## FrontEnd svxlink_react
 
 The Frontend application is a react application that can be hosted on any website as long as it can connect to the svxlink servers.
+
+### TODO: Create Install Documentation / Install Scripts
