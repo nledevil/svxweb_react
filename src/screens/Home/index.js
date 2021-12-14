@@ -2,12 +2,14 @@ import React from 'react';
 import ContentWrapper from '../../components/ContentWrapper';
 import { useStateValue } from '../../state';
 
+import './index.css';
+
 const HomeScreen = () => {
   const [memData, setMemData] = React.useState({ 
-    freeMemMb: 0,
+    freeMemMb: -1,
     freeMemPercentage: 0,
     totalMemMb: 0,
-    usedMemMb: 0,
+    usedMemMb: -1,
     usedMemPercentage: 0,
   });
   const [cpuData, setCpuData] = React.useState({
@@ -58,58 +60,58 @@ const HomeScreen = () => {
   }, [osStats]);
   return (
     <ContentWrapper pageName="System Dashboard" hideButtons>
-        <div className="container-lg" style={{ backgroundColor: 'rgba(0, 0, 0, .10)', paddingLeft: 20, paddingRight: 20, paddingBottom: 10 }}>
-          <div className="row" style={{ paddingTop: 12 }}>
-            <div className="col-sm-6" style={{ display: 'flex', flexDirection: 'column' }}>
-              <h6 style={{ fontWeight: 'bold' }}>System Info</h6>
+        <div className="container-lg homeContainer">
+          <div className="row">
+            <div className="col-sm-6 sectionContainer">
+              <h6 className="sectionHeader">System Info</h6>
               <div><b>Hostname:</b> {osData.hostname}</div>
               <div><b>Arch Type:</b> {osData.arch}</div>
               <div><b>OS:</b> {osData.os}</div>
               <div><b>OS Type:</b> {osData.type}</div>
-              <div><b>Uptime:</b> {osData.uptime} Seconds</div>
+              <div><b>Uptime:</b> {osData.uptime !== 0 && `${osData.uptime} Seconds`}</div>
             </div>
-            <div className="col-sm-6" style={{ display: 'flex', flexDirection: 'column' }}>
-              <h6 style={{ fontWeight: 'bold' }}>Network</h6>
+            <div className="col-sm-6 sectionContainer">
+              <h6 className="sectionHeader">Network</h6>
               {netData.filter(i => i.family === 'IPv4').map((item, idx) => (
                 <div key={idx}><b>{item.iname}:</b> {item.address}</div>
               ))}
             </div>
           </div>
-          <div className="row" style={{ paddingTop: 12 }}>
-            <div className="col-sm-6" style={{ display: 'flex', flexDirection: 'column' }}>
-              <h6 style={{ fontWeight: 'bold' }}>CPU</h6>
-              <div><b>Utilization:</b> {cpuData.cpuAvg}%</div>
-              <div><b>Core Count:</b> {cpuData.cpuCount}</div>
+          <div className="row">
+            <div className="col-sm-6 sectionContainer">
+              <h6 className="sectionHeader">CPU</h6>
+              <div><b>Utilization:</b> {cpuData.cpuAvg !== 0 && `${cpuData.cpuAvg}%`}</div>
+              <div><b>Core Count:</b> {cpuData.cpuCount !== 0 && cpuData.cpuCount}</div>
               <div><b>Model:</b> {cpuData.cpuModel}</div>
               <div><b>Temp:</b> {cpuData.cpuTemp}</div>
             </div>
-            <div className="col-sm-6" style={{ display: 'flex', flexDirection: 'column' }}>
-              <h6 style={{ fontWeight: 'bold' }}>Memory</h6>
-              <div><b>Total:</b> {memData.totalMemMb} MB</div>
-              <div><b>Used:</b> {memData.usedMemMb} MB ({memData.usedMemPercentage}%)</div>
-              <div><b>Free:</b> {memData.freeMemMb} MB ({memData.freeMemPercentage}%)</div>
-              <div><b>Total Processes:</b> {procData.totalProcesses}</div>
+            <div className="col-sm-6 sectionContainer">
+              <h6 className="sectionHeader">Memory</h6>
+              <div><b>Total:</b> {memData.totalMemMb !== 0 && `${memData.totalMemMb}MB`}</div>
+              <div><b>Used:</b> {memData.usedMemMb !== -1 && `${memData.usedMemMb} MB (${memData.usedMemPercentage}%)`}</div>
+              <div><b>Free:</b> {memData.freeMemMb !== -1 && `${memData.freeMemMb} MB (${memData.freeMemPercentage}%)`}</div>
+              <div><b>Total Processes:</b> {procData.totalProcesses !== 0 && procData.totalProcesses}</div>
             </div>
           </div>
-          <div className="row" style={{ paddingTop: 12 }}>
-            <div className="col-sm-12" style={{ display: 'flex', flexDirection: 'column' }}>
-              <h6 style={{ fontWeight: 'bold' }}>Audio Inputs</h6>
+          <div className="row">
+            <div className="col-sm-12 sectionContainer">
+              <h6 className="sectionHeader">Audio Inputs</h6>
               {audioData.inputs.map((i, idx) => (
                 <div key={idx}>{i}</div>
               ))}
             </div>
           </div>
-          <div className="row" style={{ paddingTop: 12 }}>
-            <div className="col-sm-12" style={{ display: 'flex', flexDirection: 'column' }}>
-              <h6 style={{ fontWeight: 'bold' }}>Audio Outputs</h6>
+          <div className="row">
+            <div className="col-sm-12 sectionContainer">
+              <h6 className="sectionHeader">Audio Outputs</h6>
               {audioData.outputs.map((i, idx) => (
                 <div key={idx}>{i}</div>
               ))}
             </div>
           </div>
-          <div className="row" style={{ paddingTop: 12 }}>
-            <div className="col-sm-12" style={{ display: 'flex', flexDirection: 'column' }}>
-              <h6 style={{ fontWeight: 'bold' }}>USB Devices</h6>
+          <div className="row">
+            <div className="col-sm-12 sectionContainer">
+              <h6 className="sectionHeader">USB Devices</h6>
               {usbData.map((i, idx) => (
                 <div key={idx}>{i}</div>
               ))}

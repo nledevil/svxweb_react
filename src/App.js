@@ -15,19 +15,18 @@ import './App.css';
 function App() {
   const [{}, dispatch] = useStateValue(); // eslint-disable-line
   const [errors, setError] = React.useState([]);
-  // const [loading, setLoading] = React.useState(false);
   const [loadOSStatsData, {
     data: osStatsData,
     error: osStatsError,
     refetch: osStatsRefetch,
-    // loading: osStatsLoading,
+    loading: osStatsLoading,
     called: osStatsCalled,
   }] = getOSStatsHook();
   const [loadSvxlinkConfigData, {
     data: svxlinkData,
     error: svxlinkError,
     refetch: svxlinkRefetch,
-    // loading: svxlinkLoading,
+    loading: svxlinkLoading,
     called: svxlinkCalled,
   }] = getSvxlinkConfigHook();
   
@@ -65,25 +64,21 @@ function App() {
     }
   }, [svxlinkData]);
 
-  // React.useEffect(() => {
-  //   if (!osStatsLoading && !svxlinkLoading) {
-  //     setLoading(false);
-  //   } else {
-  //     setLoading(true);
-  //   }
-  // }, [osStatsLoading, svxlinkLoading]);
-
   const refresh = () => {
-    if (osStatsCalled) {
-      osStatsRefetch();
-    } else {
-      loadOSStatsData();
+    if (!osStatsLoading) {
+      if (osStatsCalled) {
+        osStatsRefetch();
+      } else {
+        loadOSStatsData();
+      }
     }
-
-    if (svxlinkCalled) {
-      svxlinkRefetch();
-    } else {
-      loadSvxlinkConfigData();
+    
+    if (!svxlinkLoading) {
+      if (svxlinkCalled) {
+        svxlinkRefetch();
+      } else {
+        loadSvxlinkConfigData();
+      }
     }
   };
 

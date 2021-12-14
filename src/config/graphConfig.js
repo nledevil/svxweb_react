@@ -5,6 +5,6 @@ import {
 
 
 export const apolloClient = new ApolloClient({
-  uri: 'http://192.168.68.89:4000/graphql',
+  uri: 'http://10.211.55.15:4000/graphql',
   cache: new InMemoryCache()
 });
