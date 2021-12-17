@@ -8,80 +8,10 @@ import Settings from './screens/Settings';
 import Modules from './screens/Modules';
 import Network from './screens/Network';
 import Terminal from './screens/Terminal';
-import { useStateValue } from './state';
-import { getOSStatsHook, getSvxlinkConfigHook } from "./utils/graphHooks";
+import Logs from './screens/Logs';
 import './App.css';
 
 function App() {
-  const [{}, dispatch] = useStateValue(); // eslint-disable-line
-  const [errors, setError] = React.useState([]);
-  const [loadOSStatsData, {
-    data: osStatsData,
-    error: osStatsError,
-    refetch: osStatsRefetch,
-    loading: osStatsLoading,
-    called: osStatsCalled,
-  }] = getOSStatsHook();
-  const [loadSvxlinkConfigData, {
-    data: svxlinkData,
-    error: svxlinkError,
-    refetch: svxlinkRefetch,
-    loading: svxlinkLoading,
-    called: svxlinkCalled,
-  }] = getSvxlinkConfigHook();
-  
-  if (osStatsError) {
-    setError([...errors, osStatsError]);
-  };
-
-  if (svxlinkError) {
-    setError([...errors, svxlinkError]);
-  };
-
-  React.useEffect(() => {
-    refresh();
-  }, []);
-
-  React.useEffect(() => {
-    if (osStatsData) {
-      // console.info('osStatsData:', osStatsData);
-      const { getOSStats } = osStatsData;
-      dispatch({
-        type: 'OSStats',
-        osStats: getOSStats,
-      });
-    }
-  }, [osStatsData]);
-
-  React.useEffect(() => {
-    if (svxlinkData) {
-      // console.info('svxlinkData:', svxlinkData);
-      const { getSvxlinkConfig } = svxlinkData;
-      dispatch({
-        type: 'SvxlinkConfig',
-        svxlinkConfig: getSvxlinkConfig,
-      });
-    }
-  }, [svxlinkData]);
-
-  const refresh = () => {
-    if (!osStatsLoading) {
-      if (osStatsCalled) {
-        osStatsRefetch();
-      } else {
-        loadOSStatsData();
-      }
-    }
-    
-    if (!svxlinkLoading) {
-      if (svxlinkCalled) {
-        svxlinkRefetch();
-      } else {
-        loadSvxlinkConfigData();
-      }
-    }
-  };
-
   return (
   <div>
     <Routes>
@@ -91,6 +21,7 @@ function App() {
         <Route path="modules" element={<Modules />} />
         <Route path="network" element={<Network />} />
         <Route path="terminal" element={<Terminal />} />
+        <Route path="logs" element={<Logs />} />
         <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>

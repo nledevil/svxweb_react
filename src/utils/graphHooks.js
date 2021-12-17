@@ -3,9 +3,16 @@ import { useLazyQuery, useMutation } from '@apollo/client';
 import queries from '../config/graphQueries';
 import mutations from '../config/graphMutations';
 
-const { getOSStatsQuery, getSvxlinkConfigQuery } = queries;
-const { upsertSvxlinkItemMutation } = mutations;
+const {
+  getOSStatsQuery,
+  getSvxlinkConfigFileQuery,
+  getSvxlinkLogFileQuery,
+  getSvxlinkStatusQuery,
+} = queries;
+const { storeSvxlinkConfigFileMutation } = mutations;
 
 export const getOSStatsHook = () => useLazyQuery(getOSStatsQuery);
-export const getSvxlinkConfigHook = () => useLazyQuery(getSvxlinkConfigQuery);
-export const upsertSvxlinkItemHook = () => useMutation(upsertSvxlinkItemMutation);
+export const getSvxlinkConfigFileHook = () => useLazyQuery(getSvxlinkConfigFileQuery);
+export const getSvxlinkLogFileHook = () => useLazyQuery(getSvxlinkLogFileQuery);
+export const getSvxlinkStatusHook = () => useLazyQuery(getSvxlinkStatusQuery);
+export const storeSvxlinkConfigFileHook = () => useMutation(storeSvxlinkConfigFileMutation);

@@ -1,12 +1,20 @@
 
 const actionTypeFunctions = {
-  SvxlinkConfig: (state, action) => ({
+  SvxlinkConfigFile: (state, action) => ({
     ...state,
-    svxlinkConfig: action.svxlinkConfig,
+    svxlinkConfigFile: action.file,
+  }),
+  SvxlinkLogFile: (state, action) => ({
+    ...state,
+    svxlinkLogFile: action.file,
   }),
   OSStats: (state, action) => ({
     ...state,
     osStats: action.osStats,
+  }),
+  SvxlinkStatus: (state, action) => ({
+    ...state,
+    svxlinkStatus: action.svxlinkStatus,
   }),
 };
 

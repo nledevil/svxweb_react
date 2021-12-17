@@ -52,9 +52,28 @@ const getSvxlinkConfig = gql`{
   }
 }`;
 
+const getSvxlinkConfigFile = gql`{
+  getSvxlinkConfigFile {
+    file
+  }
+}`;
+
+const getSvxlinkLogFile = gql`{
+  getSvxlinkLogFile {
+    file
+  }
+}`;
+
+const getSvxlinkStatus = gql`{
+  getSvxlinkStatus
+}`;
+
 const queries = {
   getOSStatsQuery: getOSStats,
   getSvxlinkConfigQuery: getSvxlinkConfig,
+  getSvxlinkConfigFileQuery: getSvxlinkConfigFile,
+  getSvxlinkLogFileQuery: getSvxlinkLogFile,
+  getSvxlinkStatusQuery: getSvxlinkStatus,
 };
 
 export default queries;

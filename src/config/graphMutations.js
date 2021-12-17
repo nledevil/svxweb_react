@@ -1,17 +1,15 @@
 import { gql } from "@apollo/client";
 
-const upsertSvxlinkItem = gql`
-  mutation upsertSvxlinkItem($input: SvxlinkDataInputType!) {
-    upsertSvxlinkItem(input: $input) {
-      headerName
-      settingName
-      settingValue
+const storeSvxlinkConfigFile = gql`
+  mutation storeSvxlinkConfigFile($input: FileInputDataType!) {
+    storeSvxlinkConfigFile(input: $input) {
+      file
     }
   }
 `;
 
 const mutations = {
-  upsertSvxlinkItemMutation: upsertSvxlinkItem,
+  storeSvxlinkConfigFileMutation: storeSvxlinkConfigFile,
 };
 
 export default mutations;

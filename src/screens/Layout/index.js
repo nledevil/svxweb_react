@@ -1,10 +1,34 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { Outlet, Link, useLocation } from "react-router-dom";
+import useAllDataHook from '../../utils/dataHook';
 
 const Layout = () => {
+  const [online, setOnline] = React.useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
   let location = useLocation();
-  // const [searchString, setSearchString] = React.useState('');
   const [pagePath, setPagePath] = React.useState('/');
+  const { loading, errors, refresh } = useAllDataHook();
+
+  if (errors && errors.length > 0) {
+    for (let i = 0; i < errors.length; i += 1) {
+      console.log('Data Error:', errors[i]); // eslint-disable-line
+    }
+  }
+
+  React.useEffect(() => {
+    if (!refreshing) {
+      refresh();
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (!loading) {
+      setRefreshing(false);
+    } else {
+      setRefreshing(true);
+    }
+  }, [loading]);
 
   React.useEffect(() => {
     if (location) {
@@ -24,16 +48,32 @@ const Layout = () => {
   //   }
   // };
 
+  const startSvxlink = () => {
+    console.info('Trying to Start Svxlink');
+  };
+
+  const stopSvxlink = () => {
+    console.info('Trying to stop Svxlink');
+  };
+
   return (
     <>
       <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <Link className="navbar-brand col-md-3 col-lg-2 me-0 px-3" to="/">
-          <img src="svxweb_logo_white2.png" alt="SVXWEB" width="116" />
-        </Link>
+        <div className="navbar-brand col-md-3 col-lg-2 me-0 px-3" style={{ display: 'flex' }}>
+          <Link to="/">
+            <img src="svxweb_logo_white2.png" alt="SVXWEB" width="116" />
+          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', color: 'white', fontWeight: 'bold' }}>{online ? 'Online' : 'Offline'}</div>
+        </div>
+        
         <button className="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         {/* <input value={searchString} onChange={(e) => setSearchString(e.target.value)} onKeyPress={(e) => checkKey(e.key)} className="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" /> */}
+        <div style={{ display: 'flex', paddingRight: 10, flexDirection: 'row' }}>
+          {!online && (<button type="button" className="btn btn-sm btn-outline-secondary" onClick={startSvxlink} style={{ fontWeight: 'bold', color: 'green', margin: 3 }}>Start Svxlink</button>)}
+          {online && (<button type="button" className="btn btn-sm btn-outline-secondary" onClick={stopSvxlink} style={{ fontWeight: 'bold', color: 'red', margin: 3 }}>Stop Svxlink</button>)}
+        </div>
       </header>
       <div className="container-fluid">
       <div className="row">
@@ -52,7 +92,13 @@ const Layout = () => {
               <li className="nav-item">
                 <Link className={`nav-link ${checkIfPath('/settings')}`} to="/settings">
                   <ion-icon name="settings-outline" style={{ paddingRight: 5 }} />
-                  Global Settings
+                  Svxlink Config
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className={`nav-link ${checkIfPath('/logs')}`} to="/logs">
+                  <ion-icon name="reader-outline" style={{ paddingRight: 5 }} />
+                  Svxlink Log
                 </Link>
               </li>
               <li className="nav-item">
